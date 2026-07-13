@@ -1,0 +1,48 @@
+name: Bug report
+description: Something doesn't snap the way it should
+labels: [bug]
+body:
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What did you do, what did you expect, and what happened instead?
+      placeholder: |
+        1. Focus a Safari window
+        2. Press ⌃⌥←
+        3. Expected the left half, but …
+    validations:
+      required: true
+  - type: input
+    id: target-app
+    attributes:
+      label: Affected app(s)
+      description: Whose window misbehaved — Fit itself, or a target app (Safari, Terminal, Chrome, …)? Window-management bugs are very often app-specific.
+  - type: input
+    id: macos
+    attributes:
+      label: macOS version
+      placeholder: e.g. 26.5.1
+    validations:
+      required: true
+  - type: input
+    id: xcode
+    attributes:
+      label: Xcode version used to build
+      placeholder: e.g. 26.6
+    validations:
+      required: true
+  - type: input
+    id: displays
+    attributes:
+      label: Display setup
+      description: Number of displays, notch, Dock position, scaling — edge and geometry bugs usually depend on this.
+      placeholder: e.g. built-in (notch) + 27″ external above it, Dock on the left
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before filing
+      options:
+        - label: Accessibility permission is granted — and re-granted after rebuilding (see docs/BUILDING.md)
+          required: true
+        - label: The target window is not in native full screen

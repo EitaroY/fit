@@ -1,0 +1,29 @@
+name: Feature request
+description: Suggest an improvement
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What are you trying to do that Fit doesn't support today?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: How should it work? Default shortcuts, settings, edge cases if you have opinions.
+  - type: input
+    id: precedent
+    attributes:
+      label: Precedent
+      description: Does Magnet, Rectangle, or another tool have this? How does it behave there?
+  - type: checkboxes
+    id: scope
+    attributes:
+      label: Scope check
+      description: Fit deliberately stays small and auditable — see the README.
+      options:
+        - label: This needs no network access and no third-party dependencies
+          required: true

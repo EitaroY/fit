@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test-and-build:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Core unit tests
+        run: swift test
+
+      - name: Build app (Release)
+        run: |
+          xcodebuild -project Fit.xcodeproj -scheme Fit -configuration Release \
+            -derivedDataPath DerivedData build
+
+      - name: Launch smoke test
+        run: |
+          APP="DerivedData/Build/Products/Release/Fit.app"
+          "$APP/Contents/MacOS/Fit" -FitSuppressOnboarding YES &
+          FIT_PID=$!
+          sleep 3
+          kill -0 "$FIT_PID"
+          kill "$FIT_PID"
