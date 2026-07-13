@@ -98,9 +98,9 @@ App Review Information の Notes 欄に:
 
 > Fit is a window-management utility for macOS (menu bar app; its icon appears on the right side of the menu bar, and it intentionally has no Dock icon — LSUIElement).
 >
-> It moves and resizes other applications' windows using the public macOS Accessibility API. This requires the user to grant permission under System Settings → Privacy & Security → Accessibility. On first launch, the app shows an onboarding window that explains this and links to the setting.
+> It moves and resizes other applications' windows using the public macOS Accessibility API. This requires the user to grant permission under System Settings → Privacy & Security → Accessibility. On first launch, the app shows an onboarding window that explains this and opens that Settings pane. (Note: macOS does not show a consent alert for sandboxed apps, so the switch is enabled manually in System Settings — the same flow as other window managers on the store.)
 >
-> To test: launch the app, click "Request Accessibility Access" in the onboarding window and grant permission, then focus any window (e.g. Finder) and press Control+Option+LeftArrow — the window snaps to the left half of the screen. Dragging a window to a screen edge shows a snap preview.
+> To test: launch the app, click "Open System Settings…" in the onboarding window, and enable Fit in the Accessibility list (add it with + and select Fit from /Applications if it is not listed). The onboarding window closes automatically once access is granted. Then focus any window (e.g. Finder) and press Control+Option+LeftArrow — the window snaps to the left half of the screen. Dragging a window to a screen edge shows a snap preview.
 >
 > The app uses no private APIs, has no network access, and collects no data. Source code: https://github.com/EitaroY/fit
 

@@ -49,11 +49,17 @@ final class PermissionOnboardingController {
         }
     }
 
-    /// Triggers the one-time system consent dialog. macOS owns the subsequent
-    /// navigation to the Accessibility pane so a duplicate dialog is not left open.
+    /// Registers Fit with the Accessibility subsystem and opens the
+    /// Accessibility pane. macOS suppresses the consent alert for sandboxed
+    /// apps, so relying on AXIsProcessTrustedWithOptions alone shows nothing —
+    /// the user flips the switch in System Settings themselves; the
+    /// trusted-check call is kept because it adds Fit to that list.
     private static func requestAccessibilityAccess() {
         let options = [kAXTrustedCheckOptionPrompt.takeUnretainedValue() as String: true] as CFDictionary
         AXIsProcessTrustedWithOptions(options)
+        if let url = URL(string: "x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility") {
+            NSWorkspace.shared.open(url)
+        }
     }
 }
 
@@ -70,9 +76,9 @@ private struct PermissionOnboardingView: View {
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
                 .fixedSize(horizontal: false, vertical: true)
-            Button("Request Accessibility Access…", action: requestAccess)
+            Button("Open System Settings…", action: requestAccess)
                 .keyboardShortcut(.defaultAction)
-            Text("This window closes by itself once access is granted.\nIf you rebuilt Fit and shortcuts stopped working, remove Fit from the Accessibility list (−) and add it again.")
+            Text("Turn on Fit in the Accessibility list — if it isn't listed, add it with + and select Fit from /Applications.\nThis window closes by itself once access is granted.")
                 .font(.caption)
                 .foregroundStyle(.tertiary)
                 .multilineTextAlignment(.center)
