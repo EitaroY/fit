@@ -50,10 +50,10 @@ final class PermissionOnboardingController {
     }
 
     /// Registers Fit with the Accessibility subsystem and opens the
-    /// Accessibility pane. macOS suppresses the consent alert for sandboxed
-    /// apps, so relying on AXIsProcessTrustedWithOptions alone shows nothing —
-    /// the user flips the switch in System Settings themselves; the
-    /// trusted-check call is kept because it adds Fit to that list.
+    /// Accessibility pane. The system consent alert only ever appears once
+    /// per app — never for re-grants after a rebuild — so opening the pane
+    /// directly is the path that always works; the trusted-check call is
+    /// kept because it adds Fit to that list.
     private static func requestAccessibilityAccess() {
         let options = [kAXTrustedCheckOptionPrompt.takeUnretainedValue() as String: true] as CFDictionary
         AXIsProcessTrustedWithOptions(options)
