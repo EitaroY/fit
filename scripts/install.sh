@@ -178,7 +178,10 @@ built_app="$build_dir/Build/Products/Release/$APP_NAME.app"
 [ -d "$built_app" ] || die "Build product missing: $built_app"
 
 info "Signing with '$CERT_NAME' for a stable code signature"
-codesign --force --sign "$CERT_NAME" "$built_app" \
+# --preserve-metadata=entitlements: keep the App Sandbox entitlement from the
+# build. A plain re-sign would strip entitlements, silently producing a
+# non-sandboxed binary that behaves differently from the App Store build.
+codesign --force --preserve-metadata=entitlements --sign "$CERT_NAME" "$built_app" \
     || die "codesign failed — is 'Fit Dev' still in your keychain and trusted for code signing?"
 
 sig=$(codesign -dvv "$built_app" 2>&1 || true)
