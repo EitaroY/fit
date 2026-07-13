@@ -448,7 +448,7 @@ tracking ──leftMouseUp──▶
 
 ## 7. セキュリティ・プライバシー設計
 
-- **App Sandbox 有効**（`ENABLE_APP_SANDBOX = YES`）。アクセシビリティ API はユーザーが TCC で許可すればサンドボックス内でも他アプリのウィンドウを操作できる（Mac App Store のウィンドウマネージャと同じ構成）。ローカルビルドとストアビルドの挙動を一致させるため、全ビルドでサンドボックスを有効にしている
+- **サンドボックス無効（AX API の制約による必須要件）**。App Sandbox は TCC のアクセシビリティ許可があっても他アプリへの AX 書き込み（ウィンドウ移動・リサイズ）を遮断するため、この種のアプリはサンドボックス化できない。Mac App Store 内のウィンドウマネージャ（Magnet 等）は 2012 年のサンドボックス義務化以前から存在する例外措置対象で、非サンドボックスのまま配布されている（実機のエンタイトルメント検証で確認済み）。**したがって新規アプリとして Mac App Store には出せない**
 - プライバシーマニフェスト（`PrivacyInfo.xcprivacy`）同梱: トラッキングなし・収集データなし・UserDefaults は自アプリ設定用途（CA92.1）
 - 取得権限はアクセシビリティのみ。キー入力の内容は読まない（RegisterEventHotKey は登録したコンボのみ通知される）
 - ネットワーク API・ファイル書き込み（UserDefaults 以外）・プロセス起動を行わない
@@ -489,8 +489,8 @@ AX・Carbon 依存部は薄いラッパーに閉じ込め、ロジックを Core
 - ターゲット 1 本（Fit.app）。`GENERATE_INFOPLIST_FILE = YES` で Info.plist は生成（`INFOPLIST_KEY_LSUIElement = YES` で Dock 非表示）
 - `SWIFT_VERSION = 5.0`（言語モード。Swift 6 strict concurrency は v0.1 では未採用 — 主要クラスは @MainActor で保護）
 - `MACOSX_DEPLOYMENT_TARGET = 13.0`（SMAppService が下限を規定）
-- `ENABLE_APP_SANDBOX = YES`（App Store 配布要件。エンタイトルメントファイルは持たず、ビルド設定から生成）
-- `ENABLE_HARDENED_RUNTIME = NO`（Mac App Store はサンドボックスが要件で Hardened Runtime は不要。Developer ID で公証配布する場合のみ YES）
+- `ENABLE_HARDENED_RUNTIME = NO`（ローカルビルド簡素化。Developer ID で公証配布する場合のみ YES にする）
+- サンドボックスは有効化しない（§7 参照 — 有効にするとウィンドウ操作が全滅する）
 - 共有スキーム `Fit` を同梱（`xcodebuild -scheme Fit` を CI・CLI で安定させる）
 
 ## 12. 既知の制約・リスク

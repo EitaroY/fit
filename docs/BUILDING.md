@@ -49,11 +49,11 @@ swift test
 
 ## Granting Accessibility permission
 
-Fit is sandboxed (the same configuration as the App Store build). Window control still works because macOS allows sandboxed apps to use the Accessibility API once you grant permission:
+Fit moves other apps' windows via the macOS Accessibility API, which requires a one-time grant. (Fit is deliberately *not* sandboxed — the App Sandbox blocks Accessibility-based window control entirely, which is also why apps like Fit can't be distributed through the Mac App Store.)
 
 1. Launch Fit. The onboarding window appears.
-2. Click **Open System Settings** → *Privacy & Security → Accessibility*.
-3. Enable **Fit** in the list. The onboarding window closes itself once access is granted.
+2. Click **Open System Settings…** → *Privacy & Security → Accessibility*. (macOS shows no consent alert for sandboxed apps — the switch is flipped manually.)
+3. Enable **Fit** in the list; if it isn't listed, add it with **+** and select Fit from /Applications. The onboarding window closes itself once access is granted.
 
 Fit requests *only* Accessibility — no screen recording, no input monitoring, no network.
 
