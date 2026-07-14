@@ -11,6 +11,7 @@ build/
 .build/
 .swiftpm/
 
-# install.sh output
+# install.sh / release.sh output
 build/
 build.log
+dist/
