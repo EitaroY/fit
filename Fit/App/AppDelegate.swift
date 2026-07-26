@@ -14,6 +14,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private var enginesRunning = false
 
     func applicationDidFinishLaunching(_ notification: Notification) {
+        LoginItem.applyDefaultIfNeeded()
+
         executor = SnapExecutor(settings: settings, tracker: tracker)
         hotkeys = HotkeyCenter()
         dragMonitor = DragSnapMonitor(executor: executor, settings: settings)
