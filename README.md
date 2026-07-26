@@ -135,4 +135,10 @@ swift test
 
 [GPL-3.0](LICENSE). Copyright © 2026 Eitaro Yamatsuta.
 
-Fit is dual-licensed: this repository is GPLv3, and the copyright holder also distributes an official build through the Mac App Store under Apple's standard terms. Contributions are accepted under the CLA described in [CONTRIBUTING.md](CONTRIBUTING.md), which is what makes the App Store build possible.
+Fit is dual-licensed: this repository is GPLv3, and the copyright holder also distributes an official signed and notarized build under separate terms. Contributions are accepted under the CLA described in [CONTRIBUTING.md](CONTRIBUTING.md), which is what makes that build possible.
+
+Building Fit yourself from this repository is free and always will be. The paid build exists so you don't have to.
+
+### Trademark
+
+"Fit" and the Fit icon are trademarks of Eitaro Yamatsuta and are **not** covered by the GPL. The license grants you the right to modify and redistribute the code; it does not grant the right to use the name or icon. Please release forks and rebuilt binaries under a different name, so users can tell an official build from an unofficial one.
