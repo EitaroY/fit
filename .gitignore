@@ -14,3 +14,6 @@ build/
 # install.sh output
 build/
 build.log
+
+# Release packaging (DMG staging, signed builds)
+dist/
